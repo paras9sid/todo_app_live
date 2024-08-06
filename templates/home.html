@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-md-12 col-xl-10">
+  
+          <div class="card mask-custom ">
+            <div class="card-body p-4 text-white">
+  
+              <div class="text-center pt-3 pb-2">
+                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-todo-list/check1.webp"
+                  alt="Check" width="60">
+                <h2 class="my-4">Task List</h2>
+              </div>
+
+            <form method="POST" action="" class="text-center" >
+          
+            {% csrf_token %}
+            
+            <a href="{% url 'addTask' %}">
+              <button type="button" class="btn btn-primary" data-mdb-ripple-init>Add Task</button>
+            </a>
+            
+            <a href="{% url 'completed_tasks' %}">
+              <button type="button" class="btn btn-success" data-mdb-ripple-init>Completed</button>
+            </a>
+
+            </form> 
+
+      
+            <br>
+
+            <table class="table text-white mb-2">
+                <thead>
+                  <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Team Member</th>
+                    <th scope="col">Task</th>
+                    <th scope="col">Priority</th>
+                    <th scope="col">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  
+                  {% for task in tasks_todo %}
+
+                  <tr class="fw-normal">      
+                    <td>{{forloop.counter}}</td>             
+                    <th>
+                      <img src="{{ task.featured_image.url }}"
+                        alt="avatar 1" style="width: 45px; height: auto;">
+                      <span class="ms-2">{{task.name}}</span>
+                    </th>
+                    <td class="align-middle">
+                      <span>{{task.task}}</span>
+                    </td>
+
+                    {% if task.priority == 'High' %}
+                    <td class="align-middle">
+                      <h6 class="mb-0"><span class="badge bg-danger">{{task.priority}}</span></h6>
+                    </td>
+
+                    {% elif task.priority == 'Medium' %}
+                    <td class="align-middle">
+                      <h6 class="mb-0"><span class="badge bg-warning">{{task.priority}}</span></h6>
+                    </td>
+                    {% else %}
+                    <td class="align-middle">
+                      <h6 class="mb-0"><span class="badge bg-success">{{task.priority}}</span></h6>
+                    </td>
+
+                    {% endif %}
+
+
+                    <td class="align-middle">
+                      <a href="{% url 'editTask' task.pk %}" data-mdb-tooltip-init title="Edit"><i
+                          class="fa fa-edit fa-lg text-warning me-3"></i></a>
+                      &nbsp;
+                      <a href="{% url 'mark_as_done' task.pk %}" data-mdb-tooltip-init title="Done"><i
+                        class="fa fa-check fa-lg text-success me-3"></i></a>
+                    &nbsp;
+                      <a href="{% url 'deleteTask' task.pk %}" data-mdb-tooltip-init title="Remove"><i
+                          class="fa fa-trash fa-lg text-danger"></i></a>
+                    </td>
+                  </tr>
+
+                  {% endfor %}
+                  
+                  
+
+                
+                </tbody>
+              </table>
+  
+  
+            </div>
+          </div>
+  
+        </div>
+      </div>
+    </div>
+
+
+    
+
+  
+{% endblock %}
