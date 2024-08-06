@@ -37,7 +37,7 @@ def mark_as_undone(request,pk):
     task = get_object_or_404(TaskToDo, pk=pk)
     task.is_completed = False
     task.save()
-    return redirect('home')
+    return redirect('completed_tasks')
 
 def editTask(request,pk):
     
