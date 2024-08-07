@@ -6,4 +6,4 @@ front end framework- bootstrap
 backend - python programming pangauge
 backend framework - django
 
-db - mysql
+db - sqlite3
